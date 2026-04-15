@@ -1,0 +1,13 @@
+services:
+  trendyol:
+    image: agilazizovf/trendyol-dev
+    container_name: trendyol-dev
+    ports:
+      - "4312:4312"
+    restart: unless-stopped
+    networks:
+      - trendyol-network
+
+networks:
+  trendyol-network:
+    driver: bridge

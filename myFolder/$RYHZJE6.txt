@@ -1,0 +1,60 @@
+
+select  
+max(salary) as maximum,  
+min(salary) as minimum, 
+avg(salary)as average, 
+sum(salary) as sum_of_salary  
+    from hr.employees 
+where mod(employee_id, 2) = 0
+
+-----------------------------
+
+select e.first_name, e.last_name, d.department_name, length(d.department_name) 
+from hr.employees e 
+Join hr.departments d on e.department_id = d.department_id 
+where e.salary>  
+(select avg(salary)  
+    from hr.employees  
+    where department_id = 50)
+
+--------------------------------
+
+select dense_rank() over(partition by job_id order by salary desc) as joba_gore,  
+dense_rank() over(partition by department_id order by salary desc) as departmente_gore 
+from hr.employees
+
+
+-----------------------------
+
+select* 
+from hr.locations
+
+-----------------
+
+select l.city || ' is located in ' || c.country_name as country_info 
+from hr.locations l 
+Join hr.countries c on l.country_id = c.country_id 
+where l.state_province is NULL
+
+
+-------------------------------
+
+select e.first_name, e.last_name, j.job_title,  
+case  
+when extract(month from hire_date) in (12,1,2)  
+then 'qis' 
+when extract(month from hire_date) in (3,4,5)  
+then 'yaz' 
+when extract(month from hire_date) in (6,7,8)  
+then 'yay' 
+when extract(month from hire_date) in (9,10,11)  
+then 'payiz' 
+    end 
+from hr.employees e 
+Join hr.jobs j on e.job_id = j.job_id
+
+
+----------------------
+
+
+---------------------
